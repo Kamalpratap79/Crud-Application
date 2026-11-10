@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "name": "dhoni",
+      "username": "ms",
+      "email": "kkholi@gmail.com",
+      "phone": "4567654323",
+      "id": "sPC9JYlciaQ"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
