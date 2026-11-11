@@ -24,37 +24,17 @@ const initialValue = {
 const AddUser = () => {
 
     const [user, setUser] = useState(initialValue);
+    const { name, username, email, phone } = user;
     const navigate = useNavigate();
 
     const onValueChange = (e) => {
         setUser({ ...user,[e.target.name] : e.target.value})
-        console.log(user);
     }
 
-    const addUserDetails = async () => {
-    try {
-        const response = await getUsers();
-
-        const nextId = Math.max(
-            0,
-            ...response.data.map(user => Number(user.id) || 0)
-        ) + 1;
-
-        const newUser = {
-            ...user,
-            id: String(nextId)
-        };
-
-        console.log(newUser);
-
-        await addUser(newUser);
-
+     const addUserDetails = async() => {
+        await addUser(user);
         navigate('/all');
-
-    } catch (error) {
-        console.error('Error adding user:', error);
     }
-}
 
 
     return (
@@ -77,7 +57,7 @@ const AddUser = () => {
             <Input onChange={(e) => onValueChange(e)}name="phone"/>
         </FormControl>
         <FormControl>
-            <Button onClick={addUserDetails} variant='contained'>Add User</Button>
+             <Button variant="contained" color="primary" onClick={() => addUserDetails()}>Add User</Button>
         </FormControl>
          
        </Container>

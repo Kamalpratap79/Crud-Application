@@ -35,7 +35,6 @@ const AllUsers = () => {
 
     const getUsersDetails = async () => {
         let response = await getUsers();
-        console.log(response);
         setUsers(response.data);
     }
 
