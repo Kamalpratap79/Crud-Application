@@ -23,4 +23,9 @@ public class UserController {
     public List<User> getUsers(){
         return this.userService.getUsers();
     }
+
+    @GetMapping("/users/{userId}")
+    public User getUser(@PathVariable String userId) {
+        return this.userService.getUser(Long.parseLong(userId));
+    }
 }
