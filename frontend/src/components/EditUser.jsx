@@ -4,7 +4,7 @@ import { FormGroup, FormControl, InputLabel,Input, Typography,Button,styled} fro
 
 import { useNavigate, useParams} from 'react-router-dom';
 
-import { getUser, editUser } from '../service/api.js';
+import { getUsers, editUser } from '../service/api.js';
 
 const Container = styled(FormGroup)`
     width: 50%;
@@ -22,28 +22,28 @@ const initialValue = {
 }
 
 const EditUser = () => {
-
     const [user, setUser] = useState(initialValue);
-    const navigate = useNavigate();
     const { id } = useParams();
+    
+    let navigate = useNavigate();
 
     useEffect(() => {
-        getUserData();
-    },[]) 
+        loadUserDetails();
+    }, []);
 
-    const getUserData = async () => {
-        let response = await getUser(id);
+    const loadUserDetails = async() => {
+        const response = await getUsers(id);
         setUser(response.data);
     }
 
-    const onValueChange = (e) => {
-        setUser({ ...user,[e.target.name] : e.target.value})
-        console.log(user);
+    const editUserDetails = async() => {
+        const response = await editUser(id, user);
+        navigate('/all');
     }
 
-    const addUserDetails = async () => {
-        await editUser(user, id);
-        navigate('/all');
+    const onValueChange = (e) => {
+        console.log(e.target.value);
+        setUser({...user, [e.target.name]: e.target.value})
     }
 
 
@@ -67,7 +67,7 @@ const EditUser = () => {
             <Input onChange={(e) => onValueChange(e)}name="phone" value={user.phone}/>
         </FormControl>
         <FormControl>
-            <Button onClick={addUserDetails} variant='contained'>Edit User</Button>
+            <Button onClick={editUserDetails} variant='contained'>Edit User</Button>
         </FormControl>
          
        </Container>
